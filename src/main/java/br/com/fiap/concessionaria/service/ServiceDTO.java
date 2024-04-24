@@ -1,6 +1,8 @@
 package br.com.fiap.concessionaria.service;
 
 
+import br.com.fiap.concessionaria.dto.request.AcessorioRequest;
+import br.com.fiap.concessionaria.entity.Acessorio;
 import org.springframework.data.domain.Example;
 
 import java.util.Collection;
@@ -28,6 +30,8 @@ public interface ServiceDTO<Entity, Request, Response> {
      * @return uma Entidade
      */
     public Entity toEntity(Request dto);
+
+
 
     /**
      * Transforma uma Entidade em um DTO de Resposta (ResponseDTO)
