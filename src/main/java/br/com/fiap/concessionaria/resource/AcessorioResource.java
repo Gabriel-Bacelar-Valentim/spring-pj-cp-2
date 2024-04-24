@@ -4,7 +4,6 @@ package br.com.fiap.concessionaria.resource;
 import br.com.fiap.concessionaria.dto.request.AcessorioRequest;
 import br.com.fiap.concessionaria.dto.response.AcessorioResponse;
 import br.com.fiap.concessionaria.entity.Acessorio;
-import br.com.fiap.concessionaria.repository.AcessorioRepository;
 import br.com.fiap.concessionaria.service.AcessorioService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/acessorio")
@@ -28,13 +26,15 @@ public class AcessorioResource {
     @GetMapping
     public ResponseEntity<Collection<AcessorioResponse>> findall(
             @RequestParam(name = "nome", required = false) String nome,
-            @RequestParam(name = "preco", required = false) Double preco
+            @RequestParam(name = "preco", required = false) Double preco,
+            @RequestParam(name = "id", required = false) Long id
 
     ){
 
         var acessorio = Acessorio.builder()
                 .nome( nome )
                 .preco( preco )
+                .id( id )
                 .build();
 
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreNullValues().withIgnoreCase();

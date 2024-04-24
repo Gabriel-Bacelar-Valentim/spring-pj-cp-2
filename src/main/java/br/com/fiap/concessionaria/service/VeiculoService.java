@@ -5,6 +5,7 @@ import br.com.fiap.concessionaria.dto.request.VeiculoRequest;
 import br.com.fiap.concessionaria.dto.response.FabricanteResponse;
 import br.com.fiap.concessionaria.dto.response.VeiculoResponse;
 import br.com.fiap.concessionaria.entity.Fabricante;
+import br.com.fiap.concessionaria.entity.TipoVeiculo;
 import br.com.fiap.concessionaria.entity.Veiculo;
 import br.com.fiap.concessionaria.repository.FabricanteRepository;
 import br.com.fiap.concessionaria.repository.VeiculoRepository;
@@ -22,7 +23,10 @@ public class VeiculoService implements ServiceDTO<Veiculo, VeiculoRequest, Veicu
     private VeiculoRepository repo;
 
     @Autowired
-    private TipoVeiculoService veiculoService;
+    private TipoVeiculoService tipoVeiculoService;
+
+    @Autowired
+    private FabricanteService fabricanteService;
 
 
 
@@ -77,8 +81,13 @@ public class VeiculoService implements ServiceDTO<Veiculo, VeiculoRequest, Veicu
                 .modelo( e.getModelo() )
                 .palavraDeEfeito( e.getPalavraDeEfeito() )
                 .anoDeFabricacao( e.getAnoDeFabricacao() )
-
-                .tipo( e.getTipo() )
+                .fabricante( fabricanteService.toResponse(Fabricante.builder().build()))
+                .tipo( tipoVeiculoService.toResponse(TipoVeiculo.builder().build()))
                 .build();
+    }
+
+    public Object findAcessoriosByVeiculo(Veiculo veiculo) {
+
+        return null;
     }
 }
