@@ -8,5 +8,7 @@ public record TipoVeiculoResponse(
         Long id,
 
         String nome
+
+
 ) {
 }

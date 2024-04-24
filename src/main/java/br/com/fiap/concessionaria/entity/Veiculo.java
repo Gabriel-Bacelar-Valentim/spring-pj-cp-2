@@ -51,7 +51,7 @@ public class Veiculo {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(
             name = "TIPO",
-            referencedColumnName = "ID_TIPO",
+            referencedColumnName = "ID_TIPO_VEICULO",
             foreignKey = @ForeignKey(
                     name = "FK_TIPO_VEICULO"
             )

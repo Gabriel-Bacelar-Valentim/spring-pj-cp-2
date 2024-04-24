@@ -8,10 +8,12 @@ import br.com.fiap.concessionaria.entity.Fabricante;
 import br.com.fiap.concessionaria.repository.FabricanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Objects;
 
+@Service
 public class FabricanteService implements ServiceDTO<Fabricante, FabricanteRequest, FabricanteResponse>{
 
     @Autowired

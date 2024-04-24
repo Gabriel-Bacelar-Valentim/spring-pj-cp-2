@@ -6,13 +6,20 @@ import br.com.fiap.concessionaria.entity.Caracteristica;
 import br.com.fiap.concessionaria.repository.CaracteristicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+
 import javax.xml.catalog.Catalog;
 import java.util.Collection;
+
+@Service
 public class CaracteristicaService implements ServiceDTO<Caracteristica, CaracteristicaRequest, CaracteristicaResponse>{
-    @Autowired
-    private CaracteristicaRepository repo;
-    @Autowired
+
+   @Autowired
+   private CaracteristicaRepository repo;
+
+   @Autowired
     private VeiculoService veiculoService;
+
     @Override
     public Collection<Caracteristica> findAll(Example<Caracteristica> example) {
         return repo.findAll();

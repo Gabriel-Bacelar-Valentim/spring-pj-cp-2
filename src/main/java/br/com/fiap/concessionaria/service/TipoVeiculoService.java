@@ -6,8 +6,13 @@ import br.com.fiap.concessionaria.entity.TipoVeiculo;
 import br.com.fiap.concessionaria.repository.TipoVeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+
 import java.util.Collection;
+
+@Service
 public class TipoVeiculoService implements ServiceDTO<TipoVeiculo, TipoVeiculoRequest, TipoVeiculoResponse> {
+
     @Autowired
     private TipoVeiculoRepository repo;
     @Override
