@@ -105,7 +105,7 @@ public class VeiculoResource {
 
     @Transactional
     @PostMapping(value = "/{id}/acessorios")
-    public VeiculoResponse save(@PathVariable Long id, @RequestBody @Valid AbstractRequest acessorios) {
+    public VeiculoResponse save(@PathVariable Long id, @RequestBody @Valid AcessorioResponse acessorios) {
         if (Objects.isNull(acessorios)) return null;
         Veiculo veiculo = service.findById(id);
         Acessorio acessorioEntity = null;

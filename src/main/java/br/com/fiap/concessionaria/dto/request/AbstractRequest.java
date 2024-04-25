@@ -10,9 +10,5 @@ public record AbstractRequest(
         @NotNull(message = "O id precisa ser informado")
         Long id
 ) {
-    public Object toEntity(AbstractRequest fabricante) {
 
-
-        return null;
-    }
 }

@@ -1,8 +1,6 @@
 package br.com.fiap.concessionaria.service;
 
 
-import br.com.fiap.concessionaria.dto.request.AcessorioRequest;
-import br.com.fiap.concessionaria.entity.Acessorio;
 import org.springframework.data.domain.Example;
 
 import java.util.Collection;

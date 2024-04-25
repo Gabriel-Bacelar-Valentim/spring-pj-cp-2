@@ -4,6 +4,7 @@ package br.com.fiap.concessionaria.resource;
 import br.com.fiap.concessionaria.dto.request.AbstractRequest;
 import br.com.fiap.concessionaria.dto.request.LojaRequest;
 import br.com.fiap.concessionaria.dto.request.VeiculoRequest;
+import br.com.fiap.concessionaria.dto.response.AcessorioResponse;
 import br.com.fiap.concessionaria.dto.response.LojaResponse;
 import br.com.fiap.concessionaria.dto.response.VeiculoResponse;
 import br.com.fiap.concessionaria.entity.Acessorio;
@@ -85,7 +86,7 @@ public class LojaResource {
 
     @Transactional
     @PostMapping(value = "/{id}/veiculos")
-    public LojaResponse save(@PathVariable Long id, @RequestBody @Valid AbstractRequest veiculos) {
+    public LojaResponse save(@PathVariable Long id, @RequestBody @Valid AcessorioResponse veiculos) {
         if (Objects.isNull(veiculos)) return null;
         Loja loja = service.findById(id);
         Veiculo veiculoEntity = null;
@@ -97,8 +98,8 @@ public class LojaResource {
     }
 
     @GetMapping(value = "/{id}/veiculos")
-    public ResponseEntity<Collection<LojaResponse>> findLojabyVeiculos(@PathVariable Long id) {
-        var loja = service.findByVeiculosId(id);
+    public ResponseEntity<Collection<LojaResponse>> findByVeiculosComercializados_Id(@PathVariable Long id) {
+        var loja = service.findByVeiculosComercializados_Id(id);
         var response = service.toResponse((Loja) loja);
         return ResponseEntity.ok(Collections.singleton(response));
     }

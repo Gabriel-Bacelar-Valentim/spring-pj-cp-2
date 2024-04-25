@@ -11,5 +11,7 @@ import java.util.List;
 public interface LojaRepository extends JpaRepository<Loja, Long> {
 
 
-    List<Veiculo> findByVeiculosId(Long id);
+    List<Loja> findByVeiculosComercializados_Id(Long veiculoId);
+
+
 }

@@ -3,7 +3,6 @@ package br.com.fiap.concessionaria.service;
 import br.com.fiap.concessionaria.dto.request.LojaRequest;
 import br.com.fiap.concessionaria.dto.response.LojaResponse;
 import br.com.fiap.concessionaria.entity.Loja;
-import br.com.fiap.concessionaria.entity.Veiculo;
 import br.com.fiap.concessionaria.repository.LojaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -49,8 +48,8 @@ public class LojaService implements ServiceDTO<Loja, LojaRequest, LojaResponse> 
                 .build();
     }
 
-    public List<Veiculo> findByVeiculosId(Long id) {
-        return repo.findByVeiculosId(id);
+    public List<Loja> findByVeiculosComercializados_Id(Long id) {
+        return repo.findByVeiculosComercializados_Id(id);
 
     }
 }
