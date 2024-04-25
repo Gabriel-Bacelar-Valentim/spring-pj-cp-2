@@ -1,6 +1,7 @@
 package br.com.fiap.concessionaria.resource;
 
 
+import br.com.fiap.concessionaria.dto.request.AbstractRequest;
 import br.com.fiap.concessionaria.dto.request.AcessorioRequest;
 import br.com.fiap.concessionaria.dto.request.VeiculoRequest;
 import br.com.fiap.concessionaria.dto.response.AcessorioResponse;
@@ -9,6 +10,8 @@ import br.com.fiap.concessionaria.entity.Acessorio;
 import br.com.fiap.concessionaria.entity.Fabricante;
 import br.com.fiap.concessionaria.entity.TipoVeiculo;
 import br.com.fiap.concessionaria.entity.Veiculo;
+import br.com.fiap.concessionaria.repository.AcessorioRepository;
+import br.com.fiap.concessionaria.repository.VeiculoRepository;
 import br.com.fiap.concessionaria.service.VeiculoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -20,18 +23,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/usuario")
+@RequestMapping(value = "/veiculo")
 public class VeiculoResource {
 
     @Autowired
     private VeiculoService service;
+
+    @Autowired
+    private VeiculoRepository repo;
+
+    @Autowired
+    private AcessorioRepository acessorioRepository;
 
     @GetMapping
     public ResponseEntity<Collection<VeiculoResponse>>findall(
@@ -97,26 +103,26 @@ public class VeiculoResource {
         return ResponseEntity.created( uri ).body( resposta );//201
     }
 
-    public List<AcessorioResponse> toAcessorioResponse(List<Acessorio> acessorios) {
-        List<AcessorioResponse> responseList = new ArrayList<>();
-        for (Acessorio acessorio : acessorios) {
-            responseList.add(new AcessorioResponse(acessorio.getNome(), acessorio.getPreco(), acessorio.getId()));
+    @Transactional
+    @PostMapping(value = "/{id}/acessorios")
+    public VeiculoResponse save(@PathVariable Long id, @RequestBody @Valid AbstractRequest acessorios) {
+        if (Objects.isNull(acessorios)) return null;
+        Veiculo veiculo = service.findById(id);
+        Acessorio acessorioEntity = null;
+        if (Objects.nonNull(acessorios.id())) {
+            acessorioEntity = acessorioRepository.findById(acessorios.id()).orElseThrow();
         }
-        return responseList;
+        veiculo.getAcessorios().add(acessorioEntity);
+        return service.toResponse(veiculo);
     }
 
     @GetMapping(value = "/{id}/acessorios")
-    public ResponseEntity<AcessorioResponse> findAcessoriosByVeiculoId(@PathVariable Long id){
-        var veiculo = service.findById(id);
-        if (veiculo == null) {
-            return ResponseEntity.notFound().build();
-        }
-        var acessorios = service.findAcessoriosByVeiculo(veiculo);
-        var resposta = acessorios.stream()
-                .map(this::toAcessorioResponse)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(resposta);
+    public ResponseEntity<Collection<VeiculoResponse>> findVeiculobyAcessorios(@PathVariable Long id) {
+        var veiculo = service.findByAcessoriosId(id);
+        var response = service.toResponse((Veiculo) veiculo);
+        return ResponseEntity.ok(Collections.singleton(response));
     }
+
 
 
 

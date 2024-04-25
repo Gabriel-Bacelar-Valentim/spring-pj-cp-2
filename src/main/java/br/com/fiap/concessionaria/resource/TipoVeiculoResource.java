@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(value = "/usuario")
+@RequestMapping(value = "/tipoVeiculo")
 public class TipoVeiculoResource {
 
     @Autowired

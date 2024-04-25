@@ -14,10 +14,11 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Service
-public class VeiculoService implements ServiceDTO<Veiculo, VeiculoRequest, VeiculoResponse>{
+public class VeiculoService implements ServiceDTO<Veiculo, VeiculoRequest, VeiculoResponse> {
 
     @Autowired
     private VeiculoRepository repo;
@@ -27,7 +28,6 @@ public class VeiculoService implements ServiceDTO<Veiculo, VeiculoRequest, Veicu
 
     @Autowired
     private FabricanteService fabricanteService;
-
 
 
     @Override
@@ -48,20 +48,20 @@ public class VeiculoService implements ServiceDTO<Veiculo, VeiculoRequest, Veicu
     @Override
     public Veiculo toEntity(VeiculoRequest dto) {
 
-        if (Objects.isNull( dto )) return null;
+        if (Objects.isNull(dto)) return null;
 
-        var fabricante = this.findById( dto.fabricante().id() );
-        var tipo = this.findById( dto.tipo().id());
+        var fabricante = this.findById(dto.fabricante().id());
+        var tipo = this.findById(dto.tipo().id());
 
 
         return Veiculo.builder()
-                .nome( dto.nome() )
-                .cor( dto.cor() )
-                .preco( dto.preco() )
-                .cilindradas( dto.cilindradas() )
-                .modelo( dto.modelo() )
-                .palavraDeEfeito( dto.palavraDeEfeito() )
-                .anoDeFabricacao( dto.anoDeFabricacao() )
+                .nome(dto.nome())
+                .cor(dto.cor())
+                .preco(dto.preco())
+                .cilindradas(dto.cilindradas())
+                .modelo(dto.modelo())
+                .palavraDeEfeito(dto.palavraDeEfeito())
+                .anoDeFabricacao(dto.anoDeFabricacao())
                 .fabricante(fabricante.getFabricante())
                 .tipo(tipo.getTipo())
                 .build();
@@ -71,23 +71,21 @@ public class VeiculoService implements ServiceDTO<Veiculo, VeiculoRequest, Veicu
     public VeiculoResponse toResponse(Veiculo e) {
 
 
-
         return VeiculoResponse.builder()
-                .id( e.getId() )
-                .nome( e.getNome() )
-                .cor( e.getCor() )
-                .preco( e.getPreco() )
-                .cilindradas( e.getCilindradas() )
-                .modelo( e.getModelo() )
-                .palavraDeEfeito( e.getPalavraDeEfeito() )
-                .anoDeFabricacao( e.getAnoDeFabricacao() )
-                .fabricante( fabricanteService.toResponse(Fabricante.builder().build()))
-                .tipo( tipoVeiculoService.toResponse(TipoVeiculo.builder().build()))
+                .id(e.getId())
+                .nome(e.getNome())
+                .cor(e.getCor())
+                .preco(e.getPreco())
+                .cilindradas(e.getCilindradas())
+                .modelo(e.getModelo())
+                .palavraDeEfeito(e.getPalavraDeEfeito())
+                .anoDeFabricacao(e.getAnoDeFabricacao())
+                .fabricante(fabricanteService.toResponse(Fabricante.builder().build()))
+                .tipo(tipoVeiculoService.toResponse(TipoVeiculo.builder().build()))
                 .build();
     }
 
-    public Object findAcessoriosByVeiculo(Veiculo veiculo) {
-
-        return null;
+    public List<Veiculo> findByAcessoriosId(Long id) {
+        return repo.findByAcessoriosId(id);
     }
 }
