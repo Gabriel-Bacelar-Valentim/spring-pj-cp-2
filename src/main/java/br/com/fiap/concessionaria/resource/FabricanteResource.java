@@ -49,7 +49,7 @@ public class FabricanteResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<FabricanteResponse> findbyid(Long id) {
+    public ResponseEntity<FabricanteResponse> findbyid(@PathVariable Long id) {
         var fabricanteList = service.findById(id);
         if (fabricanteList == null) return ResponseEntity.notFound().build();
         var resposta = service.toResponse(fabricanteList);
